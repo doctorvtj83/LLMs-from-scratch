@@ -52,27 +52,17 @@
 
   "postCreateCommand": "pip install --upgrade pip && pip install -e . && pip install -r requirements.txt",
 
-  "mounts": [
-    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,readonly"
-  ],
-
-  "initializeCommand": "echo 'Initializing devcontainer with SSH agent forwarding...'",
-
-  "containerEnv": {
-    "SSH_AUTH_SOCK": "/ssh-agent"
-  },
-
-  "runArgs": [
-    "--mount", "type=bind,src=${localEnv:SSH_AUTH_SOCK},dst=/ssh-agent"
-  ],
-
   "remoteUser": "vscode",
 
-  "forwardPorts": [8888],
+  "forwardPorts": [8888, 2222],
   "portsAttributes": {
     "8888": {
       "label": "JupyterLab",
       "onAutoForward": "notify"
+    },
+    "2222": {
+      "label": "SSH",
+      "onAutoForward": "silent"
     }
   },
 
